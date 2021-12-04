@@ -28,9 +28,9 @@ export default function CurrencyLogo({
 
     if (currency instanceof Token) {
       if (currency instanceof WrappedTokenInfo) {
-        return [...uriLocations, getTokenLogoURL(currency.address)]
+        return [...uriLocations, `/images/tokens/${currency?.symbol ?? 'token'}.png`, getTokenLogoURL(currency.address)]
       }
-      return [getTokenLogoURL(currency.address)]
+      return [`/images/tokens/${currency?.symbol ?? 'token'}.png`, getTokenLogoURL(currency.address)]
     }
     return []
   }, [currency, uriLocations])
@@ -38,6 +38,8 @@ export default function CurrencyLogo({
   if (currency === ETHER) {
     return <BinanceIcon width={size} style={style} />
   }
-
+  if (currency?.symbol === 'CAHU') {
+    return <StyledLogo srcs={['/images/tokens/tokenIcon.png']} size={size} style={style} alt="Token Logo" />
+  }
   return <StyledLogo size={size} srcs={srcs} alt={`${currency?.symbol ?? 'token'} logo`} style={style} />
 }
